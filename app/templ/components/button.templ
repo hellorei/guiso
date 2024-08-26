@@ -1,0 +1,63 @@
+package components
+
+import (
+	"guiso/app/utils"
+)
+
+type ButtonProps struct {
+	Label     string
+	Id        string
+	Class     string
+	Variant   string // color, gray, outline, unstyled
+	Corners   string // rounded, sharp, soft, none
+	Size      string // sm, md, lg
+	Color     string // blue, red, yellow
+	LeftIcon  templ.Component
+	RightIcon templ.Component
+  Attrs     templ.Attributes
+  Href      string
+}
+
+templ Button(props ButtonProps) {
+  if props.Href != "" {
+    <a href={ templ.SafeURL(props.Href) } class={ utils.CreateClassName(
+      "font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-" + props.Color + "-600",
+      "transition duration-150 hover:duration-75 ease-in-out",
+      utils.GetVariantClassName(props.Variant, props.Color),
+      utils.GetCornerClassName(props.Corners),
+      utils.GetSizeClassName(props.Size),
+      props.Class,
+    ) }
+    { props.Attrs... }
+    >
+      if props.LeftIcon != nil {
+        @props.LeftIcon
+      }
+      { props.Label }
+      if props.RightIcon != nil {
+        @props.RightIcon
+      }
+    </a>
+  } else {
+    <button
+      id={ props.Id }
+      class={ utils.CreateClassName(
+        "font-semibold shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-" + props.Color + "-600",
+        "transition duration-150 hover:duration-75 ease-in-out",
+        utils.GetVariantClassName(props.Variant, props.Color),
+        utils.GetCornerClassName(props.Corners),
+        utils.GetSizeClassName(props.Size),
+        props.Class,
+      ) }
+      { props.Attrs... }
+    >
+      if props.LeftIcon != nil {
+        @props.LeftIcon
+      }
+      { props.Label }
+      if props.RightIcon != nil {
+        @props.RightIcon
+      }
+    </button>
+  }
+}

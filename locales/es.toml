@@ -1,0 +1,7 @@
+HelloWorld = "¡Hola, Mundo!"
+Welcome = "¡Bienvenido al Guiso!"
+
+[Meta]
+Title = "Guiso App"
+Description = "My awesome app description"
+Organization = "Guiso"

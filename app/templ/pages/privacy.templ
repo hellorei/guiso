@@ -1,0 +1,19 @@
+package pages
+
+import (
+  "guiso/app/types"
+  "guiso/app/templ/components"
+)
+
+
+templ Privacy(appCtx types.AppContext) {
+	@components.Page(appCtx) {
+    <article class="py-32 prose lg:prose-xl mx-auto flex max-w-screen-2xl px-8 flex-col">
+      if content, ok := appCtx.MarkdownContent["privacy"][appCtx.CurrentLocale]; ok {
+        @content
+      } else {
+        <h1>No content found</h1>
+      }
+    </article>
+	}
+}

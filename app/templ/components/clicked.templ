@@ -1,0 +1,10 @@
+package components
+
+import (
+  "guiso/app/types"
+  "strconv"
+)
+
+templ Clicked(appCtx types.AppContext, count int) {
+	<button hx-post="/clicked" hx-swap="outerHTML">Clicked { strconv.Itoa(count) } times</button>
+}

@@ -1,0 +1,27 @@
+package pages
+
+import (
+  "guiso/app/templ/components"
+  "guiso/app/types"
+)
+
+templ Pokemon(appCtx types.AppContext, pokemon []types.Pokemon) {
+	@components.Page(appCtx) {
+		<h1 class="text-3xl">Pokemon list</h1>
+		<div class="grid grid-cols-3 gap-3">
+			for _, p := range pokemon {
+				<div class="bg-gray-200 p-3 rounded-lg">
+					<h2 class="text-xl text-gray-700">{ p.Name }</h2>
+					<img src={ p.Sprites.FrontDefault }/>
+					<a href={ templ.SafeURL("/en/pokemon/" + p.Name) }>
+						@components.Button(components.ButtonProps{
+							Label:   "View",
+							Variant: "gray",
+						})
+					</a>
+				</div>
+			}
+		</div>
+		<script src={ "/out/pokemon-page.js" }></script>
+	}
+}

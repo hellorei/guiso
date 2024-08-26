@@ -1,0 +1,28 @@
+{
+  "tailwindCSS.includeLanguages": {
+    "templ": "html"
+  },
+  "emmet.includeLanguages": {
+    "templ": "html"
+  },
+  "files.exclude": {
+    "**/*_templ.go": true
+  },
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
+  },
+  "eslint.workingDirectories": [
+    {
+      "mode": "auto"
+    }
+  ],
+  "[toml]": {
+    "editor.formatOnSave": false,
+    "editor.tabSize": 2,
+    "editor.insertSpaces": true
+  },
+  "editor.tabSize": 2
+}

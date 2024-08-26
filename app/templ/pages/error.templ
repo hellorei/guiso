@@ -1,0 +1,16 @@
+package pages
+
+import (
+	"guiso/app/types"
+	"guiso/app/templ/components"
+)
+
+templ Error(appCtx types.AppContext, message string) {
+	@components.Page(appCtx) {
+		<h1 class="text-3xl">Oops, something went wrong while getting that page</h1>
+		<p>Please try again later.</p>
+		if message != "" {
+			<p>Error message: { message }</p>
+		}
+	}
+}

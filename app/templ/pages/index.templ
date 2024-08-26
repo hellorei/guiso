@@ -1,0 +1,30 @@
+package pages
+
+import (
+	"github.com/nicksnyder/go-i18n/v2/i18n"
+  "guiso/app/types"
+  "guiso/app/templ/components"
+)
+
+
+templ Index(appCtx types.AppContext) {
+	@components.Page(appCtx) {
+		<h1>{ appCtx.Localizer.MustLocalize(&i18n.LocalizeConfig{MessageID: "HelloWorld"}) }</h1>
+		<p>{ appCtx.Localizer.MustLocalize(&i18n.LocalizeConfig{MessageID: "Welcome"}) }</p>
+		<a class="text-blue-500" href="/pokemon">/pokemon (API test)</a>
+		<div class="flex items-center gap-2">
+			<button hx-post="/clicked" hx-swap="outerHTML">Test HTMX</button>
+			@components.Button(components.ButtonProps{
+				Label:   "Test Button Component",
+				Id:      "test-id",
+				Variant: "colorful",
+			})
+			<button hx-post="/clicked" hx-swap="outerHTML">Test2 HTMX</button>
+			@components.Button(components.ButtonProps{
+				Label:   "Test Button Component",
+				Id:      "test-id",
+				Variant: "colorful",
+			})
+		</div>
+	}
+}

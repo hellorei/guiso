@@ -1,0 +1,91 @@
+package components
+
+import (
+  "github.com/nicksnyder/go-i18n/v2/i18n"
+	"guiso/app/types"
+)
+
+templ Page(appCtx types.AppContext) {
+	<!DOCTYPE html>
+	<html lang={ appCtx.Lang }>
+		<head>
+			<meta charset="UTF-8" />
+			<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+			<title>{ appCtx.SEO.Title }</title>
+			<meta name="description" content={ appCtx.SEO.Description } />
+			<link rel="canonical" href={ appCtx.SEO.URL } />
+
+      <meta property="og:type" content="website" />
+			<meta property="og:title" content={ appCtx.SEO.Title } />
+			<meta property="og:description" content={ appCtx.SEO.Description } />
+			<meta property="og:image" content={ appCtx.SEO.Image } />
+			<meta property="og:url" content={ appCtx.SEO.URL } />
+      <meta property="og:locale" content={ appCtx.Lang } />
+      <meta property="og:site_name" content={ appCtx.Localizer.MustLocalize(&i18n.LocalizeConfig{MessageID: "Meta.Organization"}) } />
+      <meta property="og:site" content={ appCtx.SEO.SiteName } />
+
+			<meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:site" content={ appCtx.SEO.TwitterHandle } />
+      <meta name="twitter:creator" content={ appCtx.SEO.TwitterHandle } />
+
+      <link rel="alternate" hreflang="es" href="https://guiso.io/es" />
+      <link rel="alternate" hreflang="en" href="https://guiso.io/en" />
+      <meta name="robots" content="index, follow" />
+
+			<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
+			<link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png" />
+			<link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png" />
+			<link rel="icon" href="/favicon/favicon.svg" type="image/svg+xml" />
+			<link rel="shortcut icon" href="/favicon/favicon.ico" />
+      <link rel="manifest" href={ "/" + appCtx.Lang + "/site.webmanifest" }>
+			<link rel="mask-icon" href="/favicon/safari-pinned-tab.svg" color="#5bbad5" />
+			<meta name="msapplication-TileColor" content="#da532c" />
+			<meta name="theme-color" content="#ffffff" />
+
+			<script src="/js/htmx.min.js"></script>
+			<script src="/js/alpine.min.js" defer></script>
+			<script src="/js/dist/main.js"></script>
+
+			<link rel="stylesheet" href="/css/global.css" />
+
+		  @templ.Raw(appCtx.JSONLDScript)
+		  
+		</head>
+		<body class="bg-white relative overflow-x-hidden" hx-boost="true" >
+			{ children... }
+      
+      // TODO: Move this to a separate file
+      // TODO: Script to Add a websocket handler to the framework
+			<script>
+				const connectWebSocket = () => {
+					const ws = new WebSocket(`${window.location.protocol === 'https:' ? 'wss:' : 'ws:'}//${window.location.host}/ws`);
+
+					ws.onopen = () => {
+						console.log("WebSocket connected");
+					};
+
+					ws.onmessage = (event) => {
+						console.log("Received message:", event.data);
+					};
+
+					ws.onclose = () => {
+						console.log("WebSocket disconnected. Reconnecting...");
+						setTimeout(connectWebSocket, 1000);
+					};
+
+					ws.onerror = (error) => {
+						console.error("WebSocket error:", error);
+					};
+
+					window.sendWebSocketMessage = (message) => {
+						if (ws.readyState === WebSocket.OPEN) {
+							ws.send(message);
+						}
+					};
+				};
+
+				connectWebSocket();
+			</script>
+		</body>
+	</html>
+}

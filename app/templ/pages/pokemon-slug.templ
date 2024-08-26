@@ -1,0 +1,14 @@
+package pages
+import (
+  "guiso/app/templ/components"
+  "guiso/app/types"
+)
+
+templ PokemonSlug(appCtx types.AppContext, pokemon types.Pokemon) {
+	@components.Page(appCtx) {
+		<div class="flex flex-col gap-4 mx-auto items-center justify-center mt-16">
+			<h1 class="text-3xl">{ pokemon.Name }</h1>
+			<img src={ pokemon.Sprites.FrontDefault } class="w-[200px] object-contain"/>
+		</div>
+	}
+}
