@@ -8,7 +8,7 @@ Guiso is a customizable end-to-end framework for building high-performance, cont
 
 **Documentation**: [https://www.guiso.io](https://www.guiso.io)
 
-![Screenshot](https://raw.githubusercontent.com/guiso/guiso/main/public/images/screenshot-guiso-help-cmd.png)
+![Screenshot](https://raw.githubusercontent.com/hellorei/guiso/main/public/images/screenshot-guiso-help-cmd.png)
 
 ## Tech Stack
 
